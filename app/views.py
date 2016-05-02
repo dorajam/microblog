@@ -1,6 +1,7 @@
 # first view function (in the app package)
-from flask import render_template
+from flask import render_template, flash, redirect
 from app import app
+from .forms import LoginForm
 
 @app.route('/')
 @app.route('/index')
@@ -18,4 +19,9 @@ def index():
     ]
 
     # arguments after your index.html should be all dynamic content variables
-    return render_template('index.html', title='Home', user=user['random'],posts=posts)
+    return render_template('index.html', title='Home', user=user,posts=posts)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Sign In', form=form)
